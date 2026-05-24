@@ -499,7 +499,7 @@
  
     <div class="data-row">
       <!-- <span class="data-label">Name</span> -->
-      <span class="data-value">Lycorice</span>
+      <span class="data-value"><i>Everybody is a star...</i></span>
     </div>
     <!-- <div class="data-row">
       <span class="data-label">ID No.</span>
@@ -539,11 +539,11 @@
  
 <script>
 const FRIENDS = [
-  { name: "Nemona",  status: "Campeona de Liga",     online: true  },
-  { name: "Arven",   status: "Cocinero legendario",  online: true  },
-  { name: "Penny",   status: "Líder de Team Star",   online: false },
-  { name: "Geeta",   status: "Top de la Liga",       online: true  },
-  { name: "Tulip",   status: "Gym Leader",           online: false },
+  { name: "Danibanmode",  status: "Mi bebote",     online: true ,avatar:'assets/friends/1.png'  },
+  { name: "IMissRight",   status: "Amigovia",  online: true,avatar:'assets/friends/2.png'   },
+  { name: "Neaxgear",   status: "Pana de tertulias",   online: true ,avatar:'assets/friends/3.png' },
+  // { name: "Geeta",   status: "Top de la Liga",       online: true  },
+  // { name: "Tulip",   status: "Gym Leader",           online: false },
 ];
  
 let open = false;
@@ -561,7 +561,7 @@ function toggleFriends() {
       el.className = 'friend-item';
       el.style.animationDelay = (i * 65) + 'ms';
       el.innerHTML = `
-        <div class="friend-avatar">${f.name[0]}</div>
+        <img class="friend-avatar" src="${f.avatar}" alt="${f.name}">
         <div class="friend-info">
           <div class="friend-name">${f.name}</div>
           <div class="friend-status">${f.status}</div>
@@ -609,10 +609,7 @@ for (let i = 0; i < 30; i++) {
 })();
 </script>
  
-<!-- ══════════════════════════════════
-     MUSIC NOW-PLAYING WIDGET
-     Floats fixed bottom-right, outside the card
-     ══════════════════════════════════ -->
+
 <style>
   #now-playing {
     position: fixed;
