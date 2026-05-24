@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trainer Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    font-family: 'Crimson Text', serif;
+    background: #06070f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(60,20,80,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(20,30,80,0.2) 0%, transparent 50%);
+  }
+ 
+  /* Particle dust */
+  .dust { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .mote {
+    position: absolute;
+    width: 1px; height: 1px;
+    background: rgba(160,100,220,0.6);
+    border-radius: 50%;
+    animation: floatMote var(--d) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes floatMote {
+    0%   { opacity: 0; transform: translateY(0) scale(1); }
+    30%  { opacity: 1; }
+    70%  { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-120px) scale(0.3); }
+  }
+ 
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 800px;
+    background: linear-gradient(160deg, #0e0f1e 0%, #0a0b16 60%, #0d0914 100%);
+    border-radius: 4px;
+    border: 1px solid rgba(120,60,180,0.4);
+    box-shadow:
+      0 0 0 1px rgba(40,20,60,0.8),
+      0 0 40px rgba(100,40,160,0.15),
+      0 20px 60px rgba(0,0,0,0.8),
+      inset 0 1px 0 rgba(160,100,220,0.1);
+    display: flex;
+    overflow: hidden;
+    min-height: 400px;
+  }
+ 
+  /* Corner ornaments */
+  .card::before, .card::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: rgba(140,70,200,0.5);
+    border-style: solid;
+    z-index: 10;
+  }
+  .card::before { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
+  .card::after  { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+ 
+  /* Top shimmer line */
+  .card-shimmer {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(160,80,240,0.6), rgba(80,80,220,0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 4s linear infinite;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+ 
+  /* Header */
+  .header-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(90deg, #12081e 0%, #0e0c1c 100%);
+    border-bottom: 1px solid rgba(100,50,160,0.3);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 10px;
+    z-index: 10;
+  }
+ 
+  .header-rune {
+    font-size: 14px;
+    opacity: 0.6;
+    color: #9060c0;
+  }
+ 
+  .header-title {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(180,130,240,0.7);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+ 
+  .header-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(100,50,160,0.3), transparent);
+  }
+ 
+  .header-glyph {
+    font-size: 10px;
+    color: rgba(120,70,180,0.4);
+    letter-spacing: 2px;
+  }
+ 
+  /* LEFT PANEL */
+  .left-panel {
+    width: 270px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 20px 24px;
+    position: relative;
+    border-right: 1px solid rgba(80,40,120,0.3);
+    background: linear-gradient(180deg, rgba(20,10,35,0.6) 0%, rgba(10,6,20,0.4) 100%);
+  }
+ 
+  /* Subtle bg pattern */
+  .left-panel::before {
+    content: '';
+    position: absolute;
+    inset: 40px 0 0 0;
+    background-image:
+      radial-gradient(circle at 50% 30%, rgba(80,30,120,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+ 
+  /* Avatar */
+  .avatar-area {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #080810;
+    border: 1px solid rgba(120,60,180,0.5);
+    box-shadow:
+      0 0 0 3px rgba(10,8,20,0.8),
+      0 0 0 4px rgba(80,40,120,0.3),
+      0 0 20px rgba(100,40,160,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    margin-top: 8px;
+  }
+ 
+  .avatar-area img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+ 
+  /* Rotating ring on avatar */
+  .avatar-ring {
+    position: absolute;
+    width: 168px; height: 168px;
+    border-radius: 50%;
+    border: 1px solid rgba(120,60,180,0.2);
+    border-top-color: rgba(160,80,240,0.5);
+    border-right-color: rgba(80,40,160,0.3);
+    animation: spin 12s linear infinite;
+    z-index: 3;
+    pointer-events: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+ 
+  /* Player badge */
+  .player-badge {
+    position: relative;
+    z-index: 2;
+    margin-top: 14px;
+    background: linear-gradient(135deg, #100820 0%, #0e0618 100%);
+    border-radius: 3px;
+    padding: 10px 24px;
+    text-align: center;
+    border: 1px solid rgba(100,50,160,0.4);
+    min-width: 170px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(140,70,200,0.1);
+  }
+ 
+  .player-name {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #d4b8f0;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px rgba(160,80,240,0.4);
+  }
+ 
+  .player-id {
+    font-family: 'Crimson Text', serif;
+    font-size: 12px;
+    color: rgba(140,100,200,0.5);
+    margin-top: 3px;
+    letter-spacing: 1px;
+  }
+ 
+  /* Friends button */
+  .friends-btn {
+    position: relative;
+    z-index: 2;
+    margin-top: 14px;
+    background: linear-gradient(135deg, #100820 0%, #0c061a 100%);
+    border: 1px solid rgba(100,50,160,0.4);
+    border-radius: 3px;
+    padding: 8px 20px;
+    color: rgba(180,130,240,0.8);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+ 
+  .friends-btn:hover {
+    border-color: rgba(160,80,240,0.6);
+    color: #c8a0f0;
+    box-shadow: 0 0 12px rgba(100,40,160,0.2);
+  }
+ 
+  .friends-btn svg { width: 14px; height: 14px; transition: transform 0.3s; }
+  .friends-btn.open svg.chevron { transform: rotate(180deg); }
+ 
+  /* Friends list */
+  .friends-list {
+    position: relative;
+    z-index: 2;
+    width: 220px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+    opacity: 0;
+    margin-top: 6px;
+  }
+ 
+  .friends-list.open { max-height: 300px; opacity: 1; }
+ 
+  .friends-inner {
+    background: rgba(8,5,16,0.95);
+    border-radius: 3px;
+    border: 1px solid rgba(80,40,120,0.4);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+ 
+  .friend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 2px;
+    background: rgba(20,10,35,0.8);
+    border: 1px solid rgba(60,30,100,0.3);
+    animation: slideIn 0.3s ease forwards;
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+ 
+  .friend-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    border: 1px solid rgba(100,50,160,0.4);
+    background: rgba(30,10,50,0.9);
+    color: #c0a0e8;
+  }
+ 
+  .friend-info { flex: 1; min-width: 0; }
+ 
+  .friend-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: #c0a0e8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+ 
+  .friend-status {
+    font-size: 11px;
+    color: rgba(140,100,180,0.5);
+    font-style: italic;
+  }
+ 
+  .friend-online {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 4px currentColor;
+  }
+  .online-dot  { background: #7c3aed; color: #7c3aed; }
+  .offline-dot { background: #2a1e40; color: #2a1e40; box-shadow: none; }
+ 
+  /* RIGHT PANEL */
+  .right-panel {
+    flex: 1;
+    padding: 52px 26px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+ 
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(160,100,220,0.6);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2px;
+  }
+ 
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(100,50,160,0.4), transparent);
+  }
+ 
+  /* Data rows — fixed, no inputs */
+  .data-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(14,10,26,0.7);
+    border-radius: 2px;
+    padding: 9px 14px;
+    border: 1px solid rgba(60,30,100,0.3);
+    border-left: 2px solid rgba(100,50,160,0.4);
+  }
+ 
+  .data-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(140,90,200,0.55);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    width: 88px;
+    flex-shrink: 0;
+  }
+ 
+  .data-value {
+    font-family: 'Crimson Text', serif;
+    font-size: 16px;
+    color: #c8b0e8;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+ 
+  /* Stats grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 2px;
+  }
+ 
+  .stat-box {
+    background: rgba(14,10,26,0.7);
+    border-radius: 2px;
+    border: 1px solid rgba(60,30,100,0.3);
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .stat-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 100%;
+    background: linear-gradient(180deg, rgba(120,60,200,0.6), transparent);
+  }
+ 
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(140,90,200,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+ 
+  .stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #d4b8f0;
+    text-shadow: 0 0 10px rgba(160,80,240,0.3);
+    line-height: 1;
+  }
+ 
+  .stat-fraction {
+    font-size: 13px;
+    color: rgba(160,100,220,0.5);
+    font-weight: 400;
+  }
+ 
+  .stat-badge {
+    display: inline-block;
+    font-size: 11px;
+    margin-right: 4px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+ 
+<!-- Dust particles -->
+<div class="dust" id="dust"></div>
+ 
+<div class="card">
+  <div class="card-shimmer"></div>
+ 
+  <!-- Header -->
+  <div class="header-bar">
+    <span class="header-rune">⬡</span>
+    <span class="header-title">Profile</span>
+    <div class="header-line"></div>
+    <span class="header-glyph">◈ ◈ ◈</span>
+  </div>
+ 
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="avatar-ring"></div>
+ 
+    <div class="avatar-area">
+      <img src="assets/avatar.png" alt="Trainer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div style="display:none;flex-direction:column;align-items:center;gap:6px;">
+        <svg width="56" height="56" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="32" r="18" fill="rgba(120,60,180,0.2)" stroke="rgba(120,60,180,0.3)" stroke-width="1"/>
+          <ellipse cx="40" cy="68" rx="28" ry="16" fill="rgba(80,40,140,0.15)"/>
+        </svg>
+      </div>
+    </div>
+ 
+    <div class="player-badge">
+      <div class="player-name">QueenBrightside</div>
+      <div class="player-id">ID No. 291296788</div>
+    </div>
+ 
+    <button class="friends-btn" id="friends-btn" onclick="toggleFriends()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      Friends
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+ 
+    <div class="friends-list" id="friends-list">
+      <div class="friends-inner" id="friends-inner"></div>
+    </div>
+  </div>
+ 
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="section-title">-</div>
+ 
+    <div class="data-row">
+      <!-- <span class="data-label">Name</span> -->
+      <span class="data-value">Lycorice</span>
+    </div>
+    <!-- <div class="data-row">
+      <span class="data-label">ID No.</span>
+      <span class="data-value">291296788</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Región</span>
+      <span class="data-value">Paldea</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Escuela</span>
+      <span class="data-value">Academia Naranja</span>
+    </div> -->
+ 
+    <div class="section-title" style="margin-top:5rem;">About me</div>
+ 
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-label">⬡ Sometimes dev</div>
+        <!-- <div class="stat-value">18</div> -->
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">✦ SheitPoster</div>
+        <!-- <div class="stat-value">67</div> -->
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">◈ Alcoholic</div>
+        <!-- <div class="stat-value">400 <span class="stat-fraction">/ 400</span></div> -->
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">◈ Second City Saint</div>
+        <!-- <div class="stat-value">200 <span class="stat-fraction">/ 200</span></div> -->
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+const FRIENDS = [
+  { name: "Nemona",  status: "Campeona de Liga",     online: true  },
+  { name: "Arven",   status: "Cocinero legendario",  online: true  },
+  { name: "Penny",   status: "Líder de Team Star",   online: false },
+  { name: "Geeta",   status: "Top de la Liga",       online: true  },
+  { name: "Tulip",   status: "Gym Leader",           online: false },
+];
+ 
+let open = false;
+ 
+function toggleFriends() {
+  open = !open;
+  const list = document.getElementById('friends-list');
+  const btn  = document.getElementById('friends-btn');
+  const inner = document.getElementById('friends-inner');
+ 
+  if (open) {
+    inner.innerHTML = '';
+    FRIENDS.forEach((f, i) => {
+      const el = document.createElement('div');
+      el.className = 'friend-item';
+      el.style.animationDelay = (i * 65) + 'ms';
+      el.innerHTML = `
+        <div class="friend-avatar">${f.name[0]}</div>
+        <div class="friend-info">
+          <div class="friend-name">${f.name}</div>
+          <div class="friend-status">${f.status}</div>
+        </div>
+        <div class="friend-online ${f.online ? 'online-dot' : 'offline-dot'}"></div>
+      `;
+      inner.appendChild(el);
+    });
+    list.classList.add('open');
+    btn.classList.add('open');
+  } else {
+    list.classList.remove('open');
+    btn.classList.remove('open');
+  }
+}
+ 
+/* Dust particles */
+const dust = document.getElementById('dust');
+for (let i = 0; i < 30; i++) {
+  const m = document.createElement('div');
+  m.className = 'mote';
+  m.style.cssText = `
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*40}%;
+    --d:${(Math.random()*6+4).toFixed(1)}s;
+    animation-delay:${(Math.random()*8).toFixed(1)}s;
+    width:${Math.random()<0.3?2:1}px;
+    height:${Math.random()<0.3?2:1}px;
+  `;
+  dust.appendChild(m);
+}
+ 
+/* ── Music widget: read song name from parent if loaded via iframe ── */
+(function() {
+  let songName = 'Desconocida';
+  try {
+    const parentAudio = window.parent.document.getElementById('bgm');
+    if (parentAudio) {
+      const src = parentAudio.currentSrc || parentAudio.querySelector('source')?.src || '';
+      const file = src.split('/').pop().split('?')[0];
+      if (file) songName = decodeURIComponent(file.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '));
+    }
+  } catch(e) {}
+  document.getElementById('nw-title').textContent = songName || 'Desconocida';
+})();
+</script>
+ 
+<!-- ══════════════════════════════════
+     MUSIC NOW-PLAYING WIDGET
+     Floats fixed bottom-right, outside the card
+     ══════════════════════════════════ -->
+<style>
+  #now-playing {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+ 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+ 
+    background: rgba(8, 4, 16, 0.82);
+    border: 1px solid rgba(100, 50, 160, 0.35);
+    border-radius: 40px;
+    padding: 7px 16px 7px 7px;
+ 
+    backdrop-filter: blur(12px);
+    box-shadow:
+      0 0 0 1px rgba(20,10,40,0.6),
+      0 4px 20px rgba(0,0,0,0.55),
+      0 0 18px rgba(80,30,140,0.12);
+ 
+    /* Slide in from right on load */
+    animation: nwSlideIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s both;
+    cursor: default;
+    user-select: none;
+  }
+ 
+  @keyframes nwSlideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+ 
+  /* Subtle shimmer on border */
+  #now-playing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 40px;
+    background: linear-gradient(90deg, transparent, rgba(140,60,220,0.08), transparent);
+    background-size: 200% 100%;
+    animation: nwShimmer 4s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes nwShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+ 
+  /* Round album art / avatar */
+  .nw-art {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(120,60,180,0.45);
+    box-shadow: 0 0 0 2px rgba(8,4,16,0.7), 0 0 10px rgba(100,40,160,0.25);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #0e0820;
+    display: flex; align-items: center; justify-content: center;
+    animation: nwSpin 8s linear infinite;
+  }
+ 
+  @keyframes nwSpin { to { transform: rotate(360deg); } }
+ 
+  /* Pause spin when hovered */
+  #now-playing:hover .nw-art { animation-play-state: paused; }
+ 
+  .nw-art img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+ 
+  .nw-art-fallback {
+    font-size: 16px;
+    opacity: 0.5;
+  }
+ 
+  /* Text block */
+  .nw-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+    max-width: 160px;
+  }
+ 
+  .nw-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    font-weight: 600;
+    color: rgba(160, 100, 220, 0.55);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+ 
+  /* Animated equaliser bars */
+  .nw-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5px;
+    height: 9px;
+  }
+ 
+  .nw-bar {
+    width: 2px;
+    border-radius: 1px;
+    background: rgba(160, 80, 220, 0.7);
+    animation: barBounce var(--s) ease-in-out infinite alternate;
+  }
+ 
+  @keyframes barBounce {
+    from { height: 2px; opacity: 0.4; }
+    to   { height: var(--h); opacity: 1; }
+  }
+ 
+  .nw-song {
+    font-family: 'Crimson Text', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #c8b0e8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.3px;
+  }
+ 
+  /* Scrolling text if too long */
+  .nw-song.scroll {
+    animation: nwScroll 8s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes nwScroll {
+    0%,15%  { transform: translateX(0); }
+    85%,100%{ transform: translateX(var(--scroll-dist)); }
+  }
+</style>
+ 
+<div id="now-playing">
+  <!-- Round art: uses assets/cover.png if available, fallback to music note -->
+  <div class="nw-art">
+    <img src="assets/cover.png" alt=""
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nw-art-fallback" style="display:none">♪</span>
+  </div>
+ 
+  <div class="nw-text">
+    <div class="nw-label">
+      <!-- Equaliser bars -->
+      <div class="nw-bars">
+        <div class="nw-bar" style="--s:0.45s;--h:9px"></div>
+        <div class="nw-bar" style="--s:0.6s;--h:6px;animation-delay:0.1s"></div>
+        <div class="nw-bar" style="--s:0.38s;--h:8px;animation-delay:0.2s"></div>
+        <div class="nw-bar" style="--s:0.55s;--h:5px;animation-delay:0.05s"></div>
+      </div>
+      playing
+    </div>
+    <div class="nw-song" id="nw-title">Oh Yeah - Green Day</div>
+  </div>
+</div>
+ 
+<script>
+/* Scroll song title if it overflows */
+(function() {
+  const song = document.getElementById('nw-title');
+  const parent = song.parentElement;
+  setTimeout(() => {
+    if (song.scrollWidth > parent.offsetWidth + 4) {
+      const dist = -(song.scrollWidth - parent.offsetWidth + 8);
+      song.style.setProperty('--scroll-dist', dist + 'px');
+      song.classList.add('scroll');
+    }
+  }, 800);
+})();
+</script>
+</body>
+</html>
+ 
