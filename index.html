@@ -20,12 +20,12 @@
   }
 
   /* ─── CORNER FRAMES ─── */
-  .corner { position:fixed; z-index:9; pointer-events:none; width:50px; height:50px; border-color:rgba(180,40,60,0.35); border-style:solid; }
+  .corner { position:fixed; z-index:9; pointer-events:none; width:50px; height:50px; border-color:rgba(120,40,180,0.35); border-style:solid; }
   .c-tl { top:18px; left:18px; border-width:1px 0 0 1px; }
   .c-tr { top:18px; right:18px; border-width:1px 1px 0 0; }
   .c-bl { bottom:18px; left:18px; border-width:0 0 1px 1px; }
   .c-br { bottom:18px; right:18px; border-width:0 1px 1px 0; }
-  .corner-dot { position:fixed; z-index:9; pointer-events:none; width:3px; height:3px; border-radius:50%; background:rgba(200,50,70,0.5); }
+  .corner-dot { position:fixed; z-index:9; pointer-events:none; width:3px; height:3px; border-radius:50%; background:rgba(140,50,200,0.5); }
   .cd-tl{top:17px;left:17px;} .cd-tr{top:17px;right:17px;} .cd-bl{bottom:17px;left:17px;} .cd-br{bottom:17px;right:17px;}
 
   /* ─── CANVAS (fire effect) ─── */
@@ -51,74 +51,74 @@
     font-family:'Cinzel', serif;
     font-size:clamp(28px, 6vw, 56px);
     font-weight:900;
-    color:#ff4466;
+    color:#c044ff;
     letter-spacing:6px;
     line-height:1;
     text-shadow:
-      0 0 10px rgba(255,60,80,0.9),
-      0 0 30px rgba(255,40,60,0.6),
-      0 0 60px rgba(200,20,40,0.4),
-      0 0 100px rgba(160,10,30,0.2);
+      0 0 10px rgba(180,60,255,0.9),
+      0 0 30px rgba(160,40,240,0.6),
+      0 0 60px rgba(140,20,200,0.4),
+      0 0 100px rgba(100,10,180,0.2);
     animation:titlePulse 3s ease-in-out infinite;
   }
 
   @keyframes titlePulse {
-    0%,100% { text-shadow:0 0 10px rgba(255,60,80,0.9), 0 0 30px rgba(255,40,60,0.6), 0 0 60px rgba(200,20,40,0.4); }
-    50%      { text-shadow:0 0 16px rgba(255,80,100,1),  0 0 50px rgba(255,60,80,0.8),  0 0 90px rgba(200,30,50,0.6); }
+    0%,100% { text-shadow:0 0 10px rgba(180,60,255,0.9), 0 0 30px rgba(160,40,240,0.6), 0 0 60px rgba(140,20,200,0.4); }
+    50%      { text-shadow:0 0 16px rgba(200,80,255,1),  0 0 50px rgba(180,60,255,0.8),  0 0 90px rgba(140,30,180,0.6); }
   }
 
-  .title-amp { color:rgba(255,100,120,0.4); font-weight:400; margin:0 10px; }
+  .title-amp { color:rgba(200,100,255,0.4); font-weight:400; margin:0 10px; }
 
   .title-sub {
     font-family:'Crimson Text', serif;
     font-style:italic;
     font-size:clamp(12px,2vw,16px);
-    color:rgba(220,80,100,0.4);
+    color:rgba(160,80,220,0.4);
     letter-spacing:5px;
     margin-top:10px;
   }
 
 
   .ornament { display:flex; align-items:center; gap:14px; margin:20px 0 24px; width:min(320px,70vw); }
-  .orn-line { flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(180,40,60,0.4), transparent); }
-  .orn-glyph { font-size:12px; color:rgba(200,50,70,0.5); }
+  .orn-line { flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(120,40,180,0.4), transparent); }
+  .orn-glyph { font-size:12px; color:rgba(140,50,200,0.5); }
 
 
   .start-btn {
     position:relative;
     background:transparent;
-    border:1px solid rgba(200,50,70,0.5);
+    border:1px solid rgba(140,50,200,0.5);
     border-radius:2px;
     padding:18px 56px;
     cursor:pointer;
     font-family:'Cinzel', serif;
     font-size:13px;
     font-weight:700;
-    color:#ff6070;
+    color:#b060f0;
     letter-spacing:5px;
     text-transform:uppercase;
     outline:none;
     transition:all 0.3s;
     overflow:hidden;
-    box-shadow:0 0 20px rgba(200,30,50,0.15), inset 0 0 20px rgba(160,10,30,0.08);
-    text-shadow:0 0 10px rgba(255,60,80,0.5);
+    box-shadow:0 0 20px rgba(140,30,180,0.15), inset 0 0 20px rgba(100,10,180,0.08);
+    text-shadow:0 0 10px rgba(180,60,255,0.5);
   }
 
   .start-btn::before {
     content:'';
     position:absolute; inset:0;
-    background:linear-gradient(90deg, transparent 0%, rgba(220,50,70,0.12) 30%, rgba(255,70,90,0.2) 50%, rgba(220,50,70,0.12) 70%, transparent 100%);
+    background:linear-gradient(90deg, transparent 0%, rgba(160,50,220,0.12) 30%, rgba(255,70,90,0.2) 50%, rgba(160,50,220,0.12) 70%, transparent 100%);
     background-size:200% 100%;
     animation:btnShimmer 2.5s ease-in-out infinite;
   }
   @keyframes btnShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-  .start-btn::after { content:'◆'; position:absolute; top:5px; left:8px; font-size:8px; color:rgba(200,50,70,0.35); }
+  .start-btn::after { content:'◆'; position:absolute; top:5px; left:8px; font-size:8px; color:rgba(140,50,200,0.35); }
 
   .start-btn:hover {
-    border-color:rgba(255,80,100,0.8);
-    color:#ff8090;
-    box-shadow:0 0 35px rgba(220,40,60,0.4), inset 0 0 30px rgba(180,20,40,0.12);
+    border-color:rgba(200,80,255,0.8);
+    color:#cc88ff;
+    box-shadow:0 0 35px rgba(160,40,220,0.4), inset 0 0 30px rgba(120,20,180,0.12);
     letter-spacing:6px;
   }
   .start-btn:active { transform:scale(0.97); }
@@ -126,7 +126,7 @@
 
   .btn-pulse {
     position:absolute; inset:-1px;
-    border:1px solid rgba(220,50,70,0.25);
+    border:1px solid rgba(160,50,220,0.25);
     border-radius:2px;
     animation:bPulse 2.5s ease-in-out infinite;
     pointer-events:none;
@@ -138,18 +138,100 @@
     font-family:'Crimson Text', serif;
     font-style:italic;
     font-size:13px;
-    color:rgba(200,60,80,0.3);
+    color:rgba(140,60,200,0.3);
     letter-spacing:3px;
     animation:hBlink 3s ease-in-out infinite;
   }
   @keyframes hBlink { 0%,100%{opacity:0.3} 50%{opacity:0.9} }
 
+  @keyframes glitchShake {
+    0%   { transform: translate(0, 0) skewX(0deg); }
+    10%  { transform: translate(-3px, 1px) skewX(-1deg); }
+    20%  { transform: translate(4px, -2px) skewX(0.5deg); }
+    30%  { transform: translate(-2px, 3px) skewX(1deg); }
+    40%  { transform: translate(5px, -1px) skewX(-0.5deg); }
+    50%  { transform: translate(-4px, 2px) skewX(0deg); }
+    60%  { transform: translate(2px, -3px) skewX(-1deg); }
+    70%  { transform: translate(-5px, 1px) skewX(0.5deg); }
+    80%  { transform: translate(3px, -2px) skewX(0deg); }
+    90%  { transform: translate(-2px, 3px) skewX(-0.5deg); }
+    100% { transform: translate(0, 0) skewX(0deg); }
+  }
+
   /* ─── FLASH ─── */
-  #flash { position:fixed; inset:0; z-index:100; background:#0a0002; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+  #flash { position:fixed; inset:0; z-index:100; background:#04000a; opacity:0; pointer-events:none; transition:opacity 0.25s; }
   #flash.on { opacity:1; pointer-events:all; }
 
+  /* ─── GLITCH OVERLAY ─── */
+  #glitch-overlay {
+    position:fixed; inset:0; z-index:200; pointer-events:none;
+    opacity:0; display:none;
+  }
+  #glitch-overlay.active { display:block; opacity:1; }
+
+  /* Scanline distortion layer */
+  #glitch-overlay .g-scan {
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0,255,100,0.03) 2px,
+      rgba(0,255,100,0.03) 4px
+    );
+    animation: gScanMove 0.08s steps(1) infinite;
+  }
+  @keyframes gScanMove {
+    0%   { transform:translateY(0); }
+    25%  { transform:translateY(-4px); }
+    50%  { transform:translateY(2px); }
+    75%  { transform:translateY(-2px); }
+    100% { transform:translateY(4px); }
+  }
+
+  /* RGB channel split canvas */
+  #glitch-canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+  /* Horizontal tear strips */
+  .g-tear {
+    position:absolute; left:0; right:0;
+    background:rgba(0,0,0,0.85);
+    animation:gTearAnim 0.12s steps(1) infinite;
+    mix-blend-mode: screen;
+  }
+  @keyframes gTearAnim {
+    0%   { transform:translateX(0); }
+    20%  { transform:translateX(-30px); }
+    40%  { transform:translateX(20px); }
+    60%  { transform:translateX(-10px); }
+    80%  { transform:translateX(15px); }
+    100% { transform:translateX(0); }
+  }
+
+  /* Static noise overlay */
+  #glitch-noise {
+    position:absolute; inset:0;
+    opacity:0.12;
+    animation:noiseFlicker 0.05s steps(1) infinite;
+  }
+  @keyframes noiseFlicker {
+    0%,100% { opacity:0.12; }
+    50%     { opacity:0.22; }
+  }
+
+  /* Color flash bands */
+  .g-band {
+    position:absolute; left:0; right:0;
+    animation:gBandFlash 0.1s steps(1) infinite;
+    pointer-events:none;
+  }
+  @keyframes gBandFlash {
+    0%,100% { opacity:0; }
+    50%     { opacity:1; }
+  }
+
   /* ─── IFRAME ─── */
-  #profile-frame { position:fixed; inset:0; z-index:50; border:none; width:100%; height:100%; opacity:0; pointer-events:none; transition:opacity 0.8s ease; }
+  #profile-frame { position:fixed; inset:0; z-index:50; border:none; width:100%; height:100%; opacity:0; pointer-events:none; transition:opacity 0.6s ease; }
   #profile-frame.visible { opacity:1; pointer-events:all; }
 </style>
 </head>
@@ -165,6 +247,22 @@
 <div class="corner-dot cd-bl"></div><div class="corner-dot cd-br"></div>
 
 <div id="flash"></div>
+
+<!-- Glitch transition overlay -->
+<div id="glitch-overlay">
+  <div class="g-scan"></div>
+  <canvas id="glitch-canvas"></canvas>
+  <div id="glitch-noise"></div>
+  <div class="g-tear" style="top:15%;height:3px;animation-delay:0s;"></div>
+  <div class="g-tear" style="top:32%;height:2px;animation-delay:0.03s;"></div>
+  <div class="g-tear" style="top:48%;height:5px;animation-delay:0.06s;"></div>
+  <div class="g-tear" style="top:67%;height:2px;animation-delay:0.02s;"></div>
+  <div class="g-tear" style="top:83%;height:4px;animation-delay:0.05s;"></div>
+  <div class="g-band" style="top:20%;height:40px;background:rgba(160,0,255,0.08);animation-delay:0.04s;"></div>
+  <div class="g-band" style="top:55%;height:20px;background:rgba(0,255,150,0.06);animation-delay:0.07s;"></div>
+  <div class="g-band" style="top:75%;height:60px;background:rgba(60,60,255,0.07);animation-delay:0.01s;"></div>
+</div>
+
 <iframe id="profile-frame" src="" title="Profile"></iframe>
 
 <audio id="bgm" loop>
@@ -348,7 +446,7 @@ class Spark {
     const a=t<0.2?t/0.2:1-(t-0.2)/0.8;
     ctx.beginPath();
     ctx.arc(this.x,this.y,this.size*(1-t*0.7),0,Math.PI*2);
-    ctx.fillStyle=`rgba(255,${Math.floor(150+Math.random()*100)},180,${a*0.9})`;
+    ctx.fillStyle=`rgba(180,${Math.floor(100+Math.random()*80)},255,${a*0.9})`;
     ctx.fill();
   }
 }
@@ -371,8 +469,8 @@ class Wisp {
     const a=t<0.1?t/0.1:(1-(t-0.1)/0.9)*0.12;
     const sz=this.size*(1+t*0.8);
     const grd=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,sz);
-    grd.addColorStop(0,`rgba(180,20,40,${a})`);
-    grd.addColorStop(1,`rgba(80,0,10,0)`);
+    grd.addColorStop(0,`rgba(120,20,180,${a})`);
+    grd.addColorStop(1,`rgba(40,0,80,0)`);
     ctx.beginPath(); ctx.arc(this.x,this.y,sz,0,Math.PI*2);
     ctx.fillStyle=grd; ctx.fill();
   }
@@ -399,18 +497,18 @@ function drawOrb() {
 
   /* Deep red outer haze */
   const haze = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 5);
-  haze.addColorStop(0,   `rgba(200, 20, 40, 0.12)`);
-  haze.addColorStop(0.4, `rgba(160, 10, 25, 0.06)`);
-  haze.addColorStop(1,   `rgba(100,  5, 15, 0)`);
+  haze.addColorStop(0,   `rgba(140, 20, 200, 0.12)`);
+  haze.addColorStop(0.4, `rgba(100, 10, 170, 0.06)`);
+  haze.addColorStop(1,   `rgba(60,  5, 120, 0)`);
   ctx.beginPath(); ctx.arc(cx, cy, radius*5, 0, Math.PI*2);
   ctx.fillStyle = haze; ctx.fill();
 
   /* Bright core */
   const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
   core.addColorStop(0,    `rgba(255,255,255, 0.95)`);
-  core.addColorStop(0.25, `rgba(255,180,190, 0.7)`);
-  core.addColorStop(0.6,  `rgba(220, 40, 60, 0.4)`);
-  core.addColorStop(1,    `rgba(160, 10, 20, 0)`);
+  core.addColorStop(0.25, `rgba(220,180,255, 0.7)`);
+  core.addColorStop(0.6,  `rgba(160, 40, 220, 0.4)`);
+  core.addColorStop(1,    `rgba(100, 10, 160, 0)`);
   ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI*2);
   ctx.fillStyle = core; ctx.fill();
 }
@@ -422,7 +520,7 @@ function loop() {
   frame++;
 
   /* Trail fade — dark red overlay instead of black for ember feel */
-  ctx.fillStyle = 'rgba(4, 0, 2, 0.38)';
+  ctx.fillStyle = 'rgba(2, 0, 6, 0.38)';
   ctx.fillRect(0, 0, W, H);
 
   /* Draw layers back→front */
@@ -444,25 +542,115 @@ for (let i = 0; i < 80; i++) {
   starsEl.appendChild(s);
 }
 
+/* ── Glitch canvas noise ── */
+function initGlitchCanvas() {
+  const gc = document.getElementById('glitch-canvas');
+  const gctx = gc.getContext('2d');
+  gc.width = window.innerWidth;
+  gc.height = window.innerHeight;
+
+  let running = false;
+
+  function drawNoise() {
+    if (!running) return;
+    const id = gctx.createImageData(gc.width, gc.height);
+    const data = id.data;
+    for (let i = 0; i < data.length; i += 4) {
+      // Mostly transparent noise, random colored pixels
+      const r = Math.random();
+      if (r < 0.04) {
+        data[i]   = Math.random() < 0.5 ? 255 : 0;   // R
+        data[i+1] = Math.random() < 0.3 ? 255 : 0;   // G
+        data[i+2] = Math.random() < 0.5 ? 255 : 0;   // B
+        data[i+3] = Math.floor(Math.random() * 160 + 60); // A
+      } else {
+        data[i+3] = 0;
+      }
+    }
+    gctx.putImageData(id, 0, 0);
+
+    // RGB split effect: draw colored offset rectangles
+    const numBands = Math.floor(Math.random() * 8) + 4;
+    for (let b = 0; b < numBands; b++) {
+      const y = Math.random() * gc.height;
+      const h = Math.random() * 12 + 2;
+      const shift = (Math.random() - 0.5) * 60;
+      const color = Math.random() < 0.33 ? 'rgba(160,0,255,0.15)' :
+                    Math.random() < 0.5  ? 'rgba(0,255,150,0.12)' : 'rgba(60,60,255,0.13)';
+      gctx.fillStyle = color;
+      gctx.fillRect(shift, y, gc.width, h);
+    }
+
+    requestAnimationFrame(drawNoise);
+  }
+
+  return {
+    start() { running = true; gc.width = window.innerWidth; gc.height = window.innerHeight; drawNoise(); },
+    stop()  { running = false; gctx.clearRect(0, 0, gc.width, gc.height); }
+  };
+}
+
+const glitchEngine = initGlitchCanvas();
+
 /* ── Start ── */
 function startGame() {
-  const bgm=document.getElementById('bgm');
-  const btn=document.getElementById('startBtn');
-  const splash=document.getElementById('splash');
-  const flash=document.getElementById('flash');
-  const iframe=document.getElementById('profile-frame');
-  btn.disabled=true;
-  bgm.volume=0;
+  const bgm    = document.getElementById('bgm');
+  const btn    = document.getElementById('startBtn');
+  const splash = document.getElementById('splash');
+  const flash  = document.getElementById('flash');
+  const iframe = document.getElementById('profile-frame');
+  const overlay= document.getElementById('glitch-overlay');
+
+  btn.disabled = true;
+  bgm.volume = 0;
   bgm.play().catch(()=>{});
-  let vol=0;
-  const fi=setInterval(()=>{ vol=Math.min(vol+0.03,0.8); bgm.volume=vol; if(vol>=0.8)clearInterval(fi); },100);
+  let vol = 0;
+  const fi = setInterval(()=>{ vol=Math.min(vol+0.03,0.8); bgm.volume=vol; if(vol>=0.8)clearInterval(fi); }, 100);
+
+  // 1. Splash exit
   setTimeout(()=>{
     splash.classList.add('exit');
+
+    // 2. Start glitch after splash fades
     setTimeout(()=>{
-      flash.classList.add('on');
-      setTimeout(()=>{ iframe.src='pokemon_profile.html'; iframe.classList.add('visible'); setTimeout(()=>flash.classList.remove('on'),200); },220);
-    },800);
-  },350);
+      overlay.classList.add('active');
+      overlay.style.pointerEvents = 'all';
+      glitchEngine.start();
+
+      // Shake the body during glitch
+      document.body.style.animation = 'glitchShake 0.1s steps(1) infinite';
+
+      // 3. Preload iframe silently
+      iframe.src = 'pokemon_profile.html';
+
+      // 4. Mid-glitch: flash white/red once at peak intensity
+      setTimeout(()=>{
+        flash.style.background = '#fff';
+        flash.style.transition = 'opacity 0.05s';
+        flash.classList.add('on');
+        setTimeout(()=>{ flash.classList.remove('on'); flash.style.background = '#04000a'; }, 80);
+      }, 550);
+
+      // 5. End glitch, reveal profile
+      setTimeout(()=>{
+        glitchEngine.stop();
+        document.body.style.animation = '';
+
+        // Final flash to black, then fade in profile
+        flash.style.transition = 'opacity 0.1s';
+        flash.classList.add('on');
+
+        setTimeout(()=>{
+          overlay.classList.remove('active');
+          overlay.style.pointerEvents = 'none';
+          iframe.classList.add('visible');
+          setTimeout(()=>{ flash.classList.remove('on'); }, 150);
+        }, 120);
+
+      }, 1050);
+
+    }, 700);
+  }, 350);
 }
 
 document.addEventListener('keydown', e=>{
